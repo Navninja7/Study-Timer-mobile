@@ -1,0 +1,321 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+::selection{
+    background-color: orange;
+}
+
+::-webkit-scrollbar{
+width:4px;
+}
+::-webkit-scrollbar-track{
+    background-color: #112;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color:orange;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar:hover ::-webkit-scrollbar{
+    width:8px;
+    transition:all 0.3s;
+}
+
+body{
+    background-color: #112;
+    font-family: "Pixelify Sans";
+    display: flex;
+    justify-content: center;
+ height:100vh;
+ width:100vw;
+ overflow-x: hidden;
+}
+
+.container{
+    width:80vw;
+    color:white;
+    display:flex;
+    flex-direction: column;
+ align-items: center;
+ justify-content: center;
+    padding:30px;
+    margin:20px;
+}
+
+.timer{
+    display: flex;
+    flex-direction: row;
+    font-size: 48px;
+}
+
+.total-time{
+    display: flex;
+    justify-content: center;
+    margin:40px 0;
+    font-size: 18px;
+}
+
+.select{
+    padding:5px;
+    border-radius: 15px;
+    margin:0 10px;
+    transition:all 0.25s;
+}
+
+.select:hover{
+    cursor:pointer;
+}
+
+.total-time span{
+    margin:0 5px;
+}
+
+.plus-button{
+    font-family: "Pixelify Sans";
+    display: flex;
+    justify-content: center;
+    height:60px;
+    width:60px;
+    border-radius: 20px;
+    background-color: white;
+    color:orange;
+    position: relative;
+    /* left:30px; */
+    transition: all 0.3s;
+}
+
+.plus-button:hover{
+    background-color: orange;
+    color:white;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.plus-button:active{
+    background-color: orangered;
+    transition:all 0.3s;
+}
+
+.plus{
+
+}
+
+.touch-controls{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100vw;
+}
+
+.toggle-button-container{
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width:inherit;
+    margin-bottom:20px;
+}
+
+.toggle-button{
+    border:2px solid white;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:60px;
+    width:min(400px,80vw);
+    transition:all 0.3s;
+}
+
+.toggle-button:hover{
+    cursor: pointer;
+    color:#112;
+    background-color: white;
+    transition:all 0.3s;
+}
+
+.toggle-button:active{
+    background-color: #aaa;
+    border-color: #aaa;
+}
+
+.other-controls{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.other-controls div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin:0 20px;
+    padding:20px;
+    font-size: 36px;
+}
+
+.increment-amount{
+    margin-top:20px;
+    position: relative;
+    bottom:20px;
+    font-size: 24px;
+}
+
+.progress{
+
+    width:100%;
+    color:white;
+    padding: 20px 0;
+    position: relative;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: auto;
+    
+}
+
+#reset{
+    display: flex;
+    font-size: 24px;
+}
+
+.tile{
+    background-color: #112;
+}
+
+.progress .tile{
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding:10px 0;
+    border: 1px solid white;
+    width:100%;
+    height:auto;
+    margin:auto;
+}
+
+.progress-container{
+    display: none;
+    flex-direction: column;
+    justify-content:flex-start;
+    position: absolute;
+    right:20px;
+    top:10px;
+    border:1px solid white;
+    border-radius: 10px;
+    height:auto;
+    max-height: 300px;
+    width:250px;
+    /* background-image: repeating-linear-gradient(40deg, grey 0%, grey 2.5%, white 2.5%, white 5%); */
+    backdrop-filter: blur(3px);
+    overflow: hidden;
+    z-index: 5;
+}
+
+.tile h4{
+    margin:5px;
+}
+.tile h4.day{
+    text-decoration: underline;
+}
+
+.minimize{
+    position: absolute;
+    top:-40px;
+    left:-10px;
+    padding:20px;
+    color:white;
+    font-size: 48px;
+    width:20px;
+    height:20px;
+    background-color: red;
+    
+}
+
+.minimize:hover{
+    cursor: pointer;
+}
+
+.borders{
+    height:30px;
+    width:100%;
+    background-image: repeating-linear-gradient(40deg, grey 0%, grey 2.5%, white 2.5%, white 5%);
+}
+
+#calendar-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    font-size: 24px;
+    border:1px solid white;
+    position:absolute;
+    top:20px;
+    right:30px;
+    width:60px;
+    height:60px;
+    border-radius: 10px;
+    padding:10px;
+    
+}
+
+#calendar-icon:hover{
+    background-color: rgb(53, 53, 97);
+    cursor: pointer;
+}
+#calendar-icon:active{
+    background-color: rgb(38, 38, 97);
+}
+
+@media only screen and (max-width: 650px){
+    .timer{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .select{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin:0 15px;
+        width:100%;
+    }
+
+    #add{
+        margin-top:20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:20px;
+        font-size: 24px;
+        width:auto;
+    }
+
+    .toggle-button-container{
+        display: flex;
+    }
+
+    #reset{
+        display: none;
+    }
+
+    .other-controls{
+        justify-content: space-around;
+        width:80vw;
+    }
+
+    .other-controls div{
+        margin:0;
+    }
+}
