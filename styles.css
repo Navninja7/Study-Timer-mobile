@@ -306,7 +306,7 @@ body{
         display: flex;
     }
 
-    #reset{
+    #toggle{
         display: none;
     }
 
