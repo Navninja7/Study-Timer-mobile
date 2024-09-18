@@ -1,7 +1,7 @@
 {
     "name": "Study Timer",
     "short_name": "S Timer",
-    "start_url": "/",
+    "start_url": "/Study-Timer-mobile/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
