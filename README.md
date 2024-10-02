@@ -2,8 +2,7 @@
 
 ## Live preview : https://navninja7.github.io/Study-Timer-mobile/
 
-## Please click here for instructions to install the app
-[Please click here for instructions to install the app](#install-the-app)
+### [Please click here for steps to install the app](#install-the-app)
 
 A simple web app for you to count the number of productive hours in your day!😄
 
@@ -19,6 +18,11 @@ _Keyboard hotkeys:_
 • __Arrow keys__ - navigate between hours, minutes and seconds
 
 ![87](https://github.com/user-attachments/assets/92297e7b-9d47-443c-aed6-e7b3c9a48ed3)
+
+• View daily progress by clicking or tapping on the ___calendar icon___ at the top-right corner.
+
+![98](https://github.com/user-attachments/assets/fc444b37-5848-4a46-aadb-20e74dfa5310)
+
 
 ## Install the app
 
