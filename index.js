@@ -181,6 +181,15 @@ document.getElementById('calendar-icon').addEventListener('click',()=>{
     document.getElementById('calendar-icon').style.display="none";
 });
 
+document.addEventListener('click',(e)=>{
+    const calendar = document.getElementById('calendar-icon');
+    if(!calendar.contains(e.target)){
+        playKeyPress(switchKeySound);
+    progressContainer.style.display="none";
+    document.getElementById('calendar-icon').style.display="flex";    
+    }
+})
+
 document.getElementById('minimize').addEventListener('click',()=>{
     playKeyPress(switchKeySound);
     progressContainer.style.display="none";
