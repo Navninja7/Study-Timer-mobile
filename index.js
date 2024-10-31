@@ -227,7 +227,7 @@ stopwatchIcon.addEventListener('click',()=>{
 
 
 document.getElementById('play-stopwatch-icon').addEventListener('click',()=>{
-    playKeyPress(switchKeySound);
+    
     if(!isStopwatch){
         //play Stopwatch
         playStopwatch();
@@ -239,11 +239,12 @@ document.getElementById('play-stopwatch-icon').addEventListener('click',()=>{
 });
 
 document.getElementById('reset-stopwatch-icon').addEventListener('click',()=>{
-    playKeyPress(switchKeySound);
+    
     resetStopwatch();
 });
 
 function resetStopwatch(){
+    playKeyPress(switchKeySound);
     document.getElementById('play-stopwatch-fa-icon').classList = "fa-solid fa-play";
     document.getElementById('stopwatch-hrs').innerHTML = "00";
     document.getElementById('stopwatch-mins').innerHTML = "00";
@@ -258,13 +259,14 @@ function resetStopwatch(){
 }
 
 function pauseStopwatch(){
+    playKeyPress(switchKeySound);
     document.getElementById('play-stopwatch-fa-icon').classList = "fa-solid fa-play";
     clearInterval(stopwatchInterval);
     isStopwatch = false;
 }
 
 function playStopwatch(){
-    
+    playKeyPress(switchKeySound);
     document.getElementById('play-stopwatch-fa-icon').classList = "fa-solid fa-pause";
     isStopwatch = true;
     stopwatchInterval = setInterval(() => {
@@ -327,6 +329,7 @@ document.body.addEventListener('keydown',(e)=>{
     let key = e.key;
     // e.preventDefault();
     if(e.shiftKey && e.key === "S"){
+        playKeyPress(switchKeySound);
         if(!document.getElementById('stopwatch-container').classList.contains('hide')){
             document.getElementById('container').classList.remove('hide');
             document.getElementById('stopwatch-icon').classList.remove('selected');
