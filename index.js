@@ -227,6 +227,7 @@ stopwatchIcon.addEventListener('click',()=>{
 
 
 document.getElementById('play-stopwatch-icon').addEventListener('click',()=>{
+    playKeyPress(switchKeySound);
     if(!isStopwatch){
         //play Stopwatch
         playStopwatch();
@@ -238,6 +239,7 @@ document.getElementById('play-stopwatch-icon').addEventListener('click',()=>{
 });
 
 document.getElementById('reset-stopwatch-icon').addEventListener('click',()=>{
+    playKeyPress(switchKeySound);
     resetStopwatch();
 });
 
@@ -262,6 +264,7 @@ function pauseStopwatch(){
 }
 
 function playStopwatch(){
+    
     document.getElementById('play-stopwatch-fa-icon').classList = "fa-solid fa-pause";
     isStopwatch = true;
     stopwatchInterval = setInterval(() => {
