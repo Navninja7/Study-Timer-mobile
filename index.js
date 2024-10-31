@@ -5,6 +5,14 @@ let totalHrs = document.getElementById('total-hrs');
 let totalMins = document.getElementById('total-mins');
 let totalSecs = document.getElementById('total-secs');
 let amount = document.getElementById('amount');
+let stopwatchIcon = document.getElementById('stopwatch-icon');
+let stopwatchContainer = document.getElementById('stopwatch-container');
+let stopwatchHrs = 0;
+let stopwatchMins = 0;
+let stopwatchSecs = 0;
+let stopwatchMilliSecs = 0;
+let isStopwatch = false;
+let stopwatchInterval;
 let changeFactorHrs = 1;
 let changeFactorMins = 10;
 let changeFactorSecs = 10;
@@ -147,11 +155,33 @@ amount.innerHTML = changeFactorMins;
     function initTiles(){
         progress.innerHTML = "";
         let keys = Object.keys(localStorage);
-        keys.sort();
+        keys.sort((a,b)=> -1*sortTiles(a,b));
         for(let i=0;i<keys.length;i++){
             let key = keys[i];
             if(key[0] == "_"){
                 generateTile(key);
+            }
+        }
+    }
+
+    function sortTiles(a,b){
+        if(a[0]!='_'){
+            return 1;
+        } else if(b[0]!='_'){
+            return -1;
+        } else {
+
+            let dateArr1,dateArr2;
+            dateArr1 = a.substr(1,10).split('-').map((date)=>parseInt(date));
+            dateArr2 = b.substr(1,10).split('-').map((date)=>parseInt(date));
+            if(dateArr1[2] === dateArr2[2]){
+                if(dateArr1[1] === dateArr2[1]){
+                    return dateArr1[0] - dateArr2[0];
+                } else {
+                    return dateArr1[1] - dateArr2[1];
+                }
+            } else {
+                return dateArr1[2] - dateArr2[2];
             }
         }
     }
@@ -181,12 +211,95 @@ document.getElementById('calendar-icon').addEventListener('click',()=>{
     document.getElementById('calendar-icon').style.display="none";
 });
 
+stopwatchIcon.addEventListener('click',()=>{
+    playKeyPress(switchKeySound);
+    if(stopwatchIcon.classList.contains('selected')){
+        stopwatchIcon.classList.remove('selected');
+        stopwatchContainer.classList.add('hide');
+        document.getElementById('container').classList.remove('hide');
+        
+    } else {
+        stopwatchIcon.classList.add('selected');
+        stopwatchContainer.classList.remove('hide');
+        document.getElementById('container').classList.add('hide');
+    }
+});
+
+
+document.getElementById('play-stopwatch-icon').addEventListener('click',()=>{
+    if(!isStopwatch){
+        //play Stopwatch
+        playStopwatch();
+    } else {
+        //pause Stopwatch
+        pauseStopwatch();
+    }
+    // isStopwatch = !isStopwatch;
+});
+
+document.getElementById('reset-stopwatch-icon').addEventListener('click',()=>{
+    resetStopwatch();
+});
+
+function resetStopwatch(){
+    document.getElementById('play-stopwatch-fa-icon').classList = "fa-solid fa-play";
+    document.getElementById('stopwatch-hrs').innerHTML = "00";
+    document.getElementById('stopwatch-mins').innerHTML = "00";
+    document.getElementById('stopwatch-secs').innerHTML = "00";
+    document.getElementById('milli-secs').innerHTML = ".00";
+    stopwatchHrs = 0;
+    stopwatchMins = 0;
+    stopwatchSecs = 0;
+    stopwatchMilliSecs = 0;
+    clearInterval(stopwatchInterval);
+    isStopwatch = false;
+}
+
+function pauseStopwatch(){
+    document.getElementById('play-stopwatch-fa-icon').classList = "fa-solid fa-play";
+    clearInterval(stopwatchInterval);
+    isStopwatch = false;
+}
+
+function playStopwatch(){
+    document.getElementById('play-stopwatch-fa-icon').classList = "fa-solid fa-pause";
+    isStopwatch = true;
+    stopwatchInterval = setInterval(() => {
+        
+        stopwatchMilliSecs = (stopwatchMilliSecs+1);
+        if(stopwatchMilliSecs == 100){
+            stopwatchSecs = stopwatchSecs + 1;
+            stopwatchMilliSecs = 0;
+
+            if(stopwatchSecs == 60){
+
+                stopwatchMins = stopwatchMins + 1;
+                stopwatchSecs = 0;
+
+
+                if(stopwatchMins == 60){
+
+                    stopwatchHrs = stopwatchHrs + 1;
+                    stopwatchMins = 0;
+                }
+
+            }
+        }
+
+        document.getElementById('stopwatch-hrs').innerHTML = `${stopwatchHrs}`.padStart(2,'0');
+        document.getElementById('stopwatch-mins').innerHTML = `${stopwatchMins}`.padStart(2,'0');
+        document.getElementById('stopwatch-secs').innerHTML = `${stopwatchSecs}`.padStart(2,'0');
+        let millisecsOutput = `${stopwatchMilliSecs}`.padStart(2,'0');
+        document.getElementById('milli-secs').innerHTML = `.${millisecsOutput}`;
+    }, 10);
+}
+
 document.addEventListener('click',(e)=>{
     const calendar = document.getElementById('calendar-icon');
     if(!calendar.contains(e.target)){
-        playKeyPress(switchKeySound);
+        // playKeyPress(switchKeySound);
     progressContainer.style.display="none";
-    document.getElementById('calendar-icon').style.display="flex";    
+    document.getElementById('calendar-icon').style.display="flex";
     }
 })
 
@@ -210,45 +323,73 @@ document.querySelectorAll('.select').forEach((field)=>{
 document.body.addEventListener('keydown',(e)=>{
     let key = e.key;
     // e.preventDefault();
+    if(e.shiftKey && e.key === "S"){
+        if(!document.getElementById('stopwatch-container').classList.contains('hide')){
+            document.getElementById('container').classList.remove('hide');
+            document.getElementById('stopwatch-icon').classList.remove('selected');
+            stopwatchContainer.classList.add('hide');
+        } else {
+            document.getElementById('container').classList.add('hide');
+            document.getElementById('stopwatch-icon').classList.add('selected');
+            stopwatchContainer.classList.remove('hide');
+        }
+    }
+
+    if(!document.getElementById('stopwatch-container').classList.contains('hide')){
+
+        if(e.key === " "){
+            if(!isStopwatch){
+                //play Stopwatch
+                playStopwatch();
+            } else {
+                //pause Stopwatch
+                pauseStopwatch();
+            }
+        } else if(e.key === 'r'){
+            resetStopwatch();
+        }
+    } else {
+        
+        if(e.ctrlKey && key == "r"){
+            resetValues();
+        }
     
-    if(e.ctrlKey && key == "r"){
-        resetValues();
-    }
-
-    if(key == "r"){
-        reset();
-    }
-
-    if(key == "e"){
-        toggle();
-         
-    }
-
-    if(key == "ArrowRight"){
+        if(key == "r"){
+            reset();
+        }
+    
+        if(key == "e"){
+            toggle();
+             
+        }
+    
+        if(key == "ArrowRight"){
+            
+            selectIndex = (selectIndex+1)%3;
+            selectField(selectIndex);
+        }
+        if(key == "ArrowLeft"){
+            
+            selectIndex = (selectIndex-1 + 3)%3;
+            selectField(selectIndex);
+        }
         
-        selectIndex = (selectIndex+1)%3;
-        selectField(selectIndex);
-    }
-    if(key == "ArrowLeft"){
-        
-        selectIndex = (selectIndex-1 + 3)%3;
-        selectField(selectIndex);
+        if(key == "d"){
+            plus();
+             
+        }
+        if(key == "s"){
+            minus();
+             
+        }
+    
+        if(key == "Enter"){
+            
+            sendUpdate();
+            resetValues();
+        }
     }
     
-    if(key == "d"){
-        plus();
-         
-    }
-    if(key == "s"){
-        minus();
-         
-    }
-
-    if(key == "Enter"){
-        
-        sendUpdate();
-        resetValues();
-    }
 });
 
 window.addEventListener('load',()=>{
@@ -283,14 +424,3 @@ let changeKeySound = 3;
 let resetKeySound = 4;
 let toggleKeySound = 6;
 let switchKeySound = 7;
-
-
-// Service worker.js
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js').then(function(registration) {
-      console.log('Service Worker registered with scope:', registration.scope);
-    }).catch(function(error) {
-      console.log('Service Worker registration failed:', error);
-    });
-  }

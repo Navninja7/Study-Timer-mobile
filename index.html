@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="timer_favicons/android-chrome-512x512.png">
@@ -10,8 +9,11 @@
     <title>Study Timer</title>
 </head>
 <body>
-    <div id="calendar-icon">
+    <div id="calendar-icon" class="icon">
         <i class="fa fa-calendar" aria-hidden="true"></i>
+    </div>
+    <div id="stopwatch-icon" class="icon">
+        <i class="fa-solid fa-stopwatch"></i>
     </div>
     <div class="progress-container">
         <div id="minimize" class="minimize">-</div>
@@ -37,7 +39,7 @@
         </div>
         <div class="borders"></div>
     </div>
-    <div class="container">
+    <div id="container" class="container">
         <div class="increment-amount">± <span id="amount"></span></div>
         <div class="timer">
             <span class="select" index="0"><span id="hrs">0&nbsp;</span> Hrs </span> <span class="select" index="1"><span id="mins">0&nbsp;</span> Mins </span> <span class="select" index="2"><span id="secs">0&nbsp;</span> Secs</span>
@@ -58,6 +60,30 @@
         <div id="reset" class="plus-button"><i class="fa fa-refresh" aria-hidden="true"></i></div>
     </div>
 </div>
+    </div>
+
+    <div id="stopwatch-container" class="stopwatch-container container hide">
+        <!-- <h1>Stopwatch Container</h1> -->
+        <div id="stopwatch-timer-container">
+            <div id="stopwatch-timer" class="stopwatch-timer-container">
+                <span id='stopwatch-hrs'>00</span>:
+                <span id='stopwatch-mins'>00</span>:
+                <span id='stopwatch-secs'>00</span>
+            </div>
+                
+                
+                <div id="milli-secs" class="milli-secs">.00</div>
+            </div>
+<div class="stopwatch-controls">
+
+    <div id="play-stopwatch-icon" class="icon stopwatch-icon">
+        <i id='play-stopwatch-fa-icon' class="fa-solid fa-play"></i>
+    </div>
+    <div id="reset-stopwatch-icon" class="icon stopwatch-icon">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+    </div>
+</div>
+
     </div>
 
     
@@ -95,6 +121,6 @@
         <source src="key_press_7.mp3" type="audio/ogg">
      </audio>
      
-    <script src="index.js" defer></script> 
+    <script src="index.js"></script> 
 </body>
 </html>
